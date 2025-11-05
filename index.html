@@ -1,17 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Nginx Test Page</title>
-  <style>
-    body { font-family: Arial, sans-serif; background:#f9fafb; color:#111; text-align:center; padding:50px; }
-    h1 { color:#0ea5e9; }
-    p { margin-top:20px; }
-  </style>
-</head>
-<body>
-  <h1>Welcome to Cloud!</h1>
-  <p>If you see this page, Nginx is working correctly ���</p>
-  <p>Server block is configured and serving static content.</p>
-</body>
-</html>
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone') {
+            steps {
+                git url: 'https://github.com/prathameshkokamkar/webapp.git', branch: 'main'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sshagent(['ssh-project']) {
+                    sh 'scp -o StrictHostKeyChecking=no index.html ubuntu@43.204.220.23:/var/www/html/'
+                }
+            }
+        }
+    }
+}
