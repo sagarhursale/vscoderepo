@@ -11,7 +11,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sshagent(['ssh-project']) {
-                    sh 'scp -o StrictHostKeyChecking=no index.html ubuntu@65.2.151.151:/var/www/html/'
+                    sh 'scp -o StrictHostKeyChecking=no index.html ubuntu@43.205.146.72:/var/www/html/'
                 }
             }
         }
